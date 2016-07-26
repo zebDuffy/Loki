@@ -79,5 +79,6 @@ public class LokiAlarm extends BroadcastReceiver
         PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(sender);
+        Log.d("Alarm", "cancel alarm");
     }
 }

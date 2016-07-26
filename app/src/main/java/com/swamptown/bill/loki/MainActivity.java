@@ -36,8 +36,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 /* TODO INtegrate github and commit*/
-/* TODO Additional options to image to fit*/
-/* TODO Cancel all and save random*/
+/* TODO save random site and exec it as alarm as test*/
+/* Todo get to phone*/
+/* TODO get description of page */
 public class MainActivity extends Activity {
     public static String lokiPrefs="Loli.cfg";
 
@@ -53,6 +54,7 @@ public class MainActivity extends Activity {
 
         final Button downloadButton = (Button) findViewById(R.id.btnTest);
         final Button saveButton = (Button) findViewById(R.id.btnSave);
+        final Button cancelButton = (Button) findViewById(R.id.btnCancel);
 
         final Spinner dropdown = (Spinner)findViewById(R.id.spinner);
         String[] items = res.getStringArray(R.array.sites);
@@ -142,7 +144,21 @@ public class MainActivity extends Activity {
 
             }
         });
-    }
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    LokiAlarm alarm= new LokiAlarm();
+                    alarm.CancelAlarm(getApplicationContext());
+                    Toast.makeText(MainActivity.this,
+                            res.getString(R.string.cancel),
+                            Toast.LENGTH_SHORT).show();
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+  }
 
         @Override
         public boolean onCreateOptionsMenu (Menu menu){
