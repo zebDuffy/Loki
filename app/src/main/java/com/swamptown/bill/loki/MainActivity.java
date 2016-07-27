@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 import android.content.Intent;
 import android.content.BroadcastReceiver;
+import java.util.Random;
 
 
 import java.io.BufferedInputStream;
@@ -70,17 +71,21 @@ public class MainActivity extends Activity {
         SharedPreferences readShared;
         readShared = getSharedPreferences("LokiPrefs", Context.MODE_PRIVATE);
         String getSite=readShared.getString("Site", null);
-        for(int i=0; i < adapter.getCount(); i++) {
-            if(getSite.trim().equals(adapter.getItem(i).toString())){
-                dropdown.setSelection(i);
-                break;
+        if (getSite != null)
+        {
+            for(int i=0; i < adapter.getCount(); i++) {
+                if(getSite.trim().equals(adapter.getItem(i).toString())){
+                    dropdown.setSelection(i);
+                    break;
+                }
             }
-        }
-        String getTime=readShared.getString("Time", null);
-        for(int i=0; i < adapter2.getCount(); i++) {
-            if(getTime.trim().equals(adapter2.getItem(i).toString())){
-                dropdown2.setSelection(i);
-                break;
+
+            String getTime=readShared.getString("Time", null);
+            for(int i=0; i < adapter2.getCount(); i++) {
+                if (getTime.trim().equals(adapter2.getItem(i).toString())) {
+                    dropdown2.setSelection(i);
+                    break;
+                }
             }
         }
 
@@ -112,6 +117,31 @@ public class MainActivity extends Activity {
                         page.execute();
                         Toast.makeText(MainActivity.this, "Getting National Geographic Page", Toast.LENGTH_SHORT).show();
                     }
+                    else
+                    {
+                        Random rand = new Random();
+                        int randomNum = rand.nextInt(3) + 1;
+                        switch (randomNum) {
+                            case 1:
+                                GetWebPage page = new GetWebPage();
+                                page.context=getApplicationContext();
+                                page.execute();
+                                break;
+                            case 2:
+                                GetWikiPage page2 = new GetWikiPage();
+                                page2.context=getApplicationContext();
+                                page2.execute();
+                                break;
+                            case 3:
+                                GetNASAPage page3 = new GetNASAPage();
+                                page3.context=getApplicationContext();
+                                page3.execute();
+                                break;
+                        }
+                        Toast.makeText(MainActivity.this, "Getting Random Page", Toast.LENGTH_SHORT).show();
+
+                    }
+
                     Log.d("Test", String.valueOf(dropdown.getSelectedItem()));
 
 

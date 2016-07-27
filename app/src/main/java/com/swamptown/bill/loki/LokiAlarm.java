@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.res.Resources;
 
 import java.util.Calendar;
+import java.util.Random;
 
 /**
  * Created by bill on 5/14/16.
@@ -46,6 +47,29 @@ public class LokiAlarm extends BroadcastReceiver
             GetWebPage page = new GetWebPage();
             page.context=context;
             page.execute();
+        }
+        else
+        {
+            Random rand = new Random();
+            int randomNum = rand.nextInt(3) + 1;
+            switch (randomNum) {
+                case 1:
+                    GetWebPage page = new GetWebPage();
+                    page.context=context;
+                    page.execute();
+                    break;
+                case 2:
+                    GetWikiPage page2 = new GetWikiPage();
+                    page2.context=context;
+                    page2.execute();
+                    break;
+                case 3:
+                    GetNASAPage page3 = new GetNASAPage();
+                    page3.context=context;
+                    page3.execute();
+                    break;
+            }
+
         }
         wl.release();
         Log.d("Alarm", "trigger alarm");
