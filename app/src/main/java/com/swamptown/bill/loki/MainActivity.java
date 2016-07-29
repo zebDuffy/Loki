@@ -37,8 +37,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 /* TODO INtegrate github and commit*/
-/* TODO save random site and exec it as alarm as test*/
-/* Todo get to phone*/
+/* TODO Icon, Title, help, about etc
 /* TODO get description of page */
 public class MainActivity extends Activity {
     public static String lokiPrefs="Loli.cfg";

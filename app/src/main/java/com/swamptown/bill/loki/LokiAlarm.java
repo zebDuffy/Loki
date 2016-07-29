@@ -92,7 +92,7 @@ public class LokiAlarm extends BroadcastReceiver
             //Today Set time passed, count to tomorrow
             calSet.add(Calendar.DATE, 1);
         }
-        am.set(AlarmManager.RTC_WAKEUP, calSet.getTimeInMillis(), pi);
+        am.setInexactRepeating(AlarmManager.RTC_WAKEUP, calSet.getTimeInMillis(), am.INTERVAL_DAY, pi);
         Log.d("Alarm", "set alarm");
 
     }
