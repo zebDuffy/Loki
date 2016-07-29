@@ -1,5 +1,6 @@
 package com.swamptown.bill.loki;
 import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,6 +8,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.PowerManager;
 import android.os.SystemClock;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.widget.Toast;
 import android.content.Context;
@@ -30,11 +33,14 @@ public class LokiAlarm extends BroadcastReceiver
         SharedPreferences readShared;
         readShared = context.getSharedPreferences("LokiPrefs", Context.MODE_PRIVATE);
         String getSite=readShared.getString("Site", null);
+        int mId=1;
         if (getSite.equals("Wikimedia Photo of the Day"))
         {
             GetWikiPage page = new GetWikiPage();
             page.context=context;
             page.execute();
+            DownloadNotification downLoad=new DownloadNotification();
+            downLoad.DoNotification("loki", "Downloaded Wiki", context);
         }
         else if (getSite.equals("Astronomy Picture of the Day"))
         {
@@ -83,8 +89,8 @@ public class LokiAlarm extends BroadcastReceiver
         Calendar calNow = Calendar.getInstance();
         Calendar calSet = (Calendar) calNow.clone();
         int hourOfDay= Integer.parseInt((hour.substring(0,hour.indexOf(":"))));
-        calSet.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        calSet.set(Calendar.MINUTE, 0);
+        calSet.set(Calendar.HOUR_OF_DAY, 22);
+        calSet.set(Calendar.MINUTE, 34);
         calSet.set(Calendar.SECOND, 0);
         calSet.set(Calendar.MILLISECOND, 0);
 
