@@ -34,25 +34,28 @@ public class LokiAlarm extends BroadcastReceiver
         readShared = context.getSharedPreferences("LokiPrefs", Context.MODE_PRIVATE);
         String getSite=readShared.getString("Site", null);
         int mId=1;
+
         if (getSite.equals("Wikimedia Photo of the Day"))
         {
             GetWikiPage page = new GetWikiPage();
             page.context=context;
             page.execute();
-            DownloadNotification downLoad=new DownloadNotification();
-            downLoad.DoNotification("loki", "Downloaded Wiki", context);
+
+
         }
         else if (getSite.equals("Astronomy Picture of the Day"))
         {
             GetNASAPage page = new GetNASAPage();
             page.context=context;
             page.execute();
+
         }
         else if (getSite.equals("National Geographic Photo of the Day"))
         {
             GetWebPage page = new GetWebPage();
             page.context=context;
             page.execute();
+
         }
         else
         {
@@ -89,8 +92,8 @@ public class LokiAlarm extends BroadcastReceiver
         Calendar calNow = Calendar.getInstance();
         Calendar calSet = (Calendar) calNow.clone();
         int hourOfDay= Integer.parseInt((hour.substring(0,hour.indexOf(":"))));
-        calSet.set(Calendar.HOUR_OF_DAY, 22);
-        calSet.set(Calendar.MINUTE, 34);
+        calSet.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        calSet.set(Calendar.MINUTE, 0);
         calSet.set(Calendar.SECOND, 0);
         calSet.set(Calendar.MILLISECOND, 0);
 

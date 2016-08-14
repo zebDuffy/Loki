@@ -60,6 +60,8 @@ public class GetWebPage extends AsyncTask<String, Context, Void> {
             }
             WallpaperManager imageWallpapermanager = WallpaperManager.getInstance(context.getApplicationContext());
             imageWallpapermanager.setStream(new FileInputStream(context.getFilesDir().getPath()+"desktop.jpg"));
+            DownloadNotification downLoad=new DownloadNotification();
+            downLoad.DoNotification("loki", "Downloaded NG Photo", context);
         } catch (Exception e) {
             e.printStackTrace();
         }

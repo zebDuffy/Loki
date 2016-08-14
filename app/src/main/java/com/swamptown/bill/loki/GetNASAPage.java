@@ -37,6 +37,8 @@ public class GetNASAPage extends AsyncTask<String, Void, Void> {
             }
             WallpaperManager imageWallpapermanager = WallpaperManager.getInstance(context.getApplicationContext());
             imageWallpapermanager.setStream(new FileInputStream(context.getFilesDir().getPath()+"desktop.jpg"));
+            DownloadNotification downLoad=new DownloadNotification();
+            downLoad.DoNotification("loki", "Downloaded Astronomy", context);
         } catch (Exception e) {
             e.printStackTrace();
         }

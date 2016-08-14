@@ -39,6 +39,7 @@ import org.jsoup.select.Elements;
 /* TODO INtegrate github and commit*/
 /* TODO Icon, Title, help, about etc
 /* TODO get description of page */
+/* TODO finish statusbar notifications*/
 public class MainActivity extends Activity {
     public static String lokiPrefs="Loli.cfg";
 
