@@ -28,7 +28,7 @@ public class LokiAlarm extends BroadcastReceiver
     public void onReceive(Context context, Intent intent)
     {
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
+        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "");
         wl.acquire();
         SharedPreferences readShared;
         readShared = context.getSharedPreferences("LokiPrefs", Context.MODE_PRIVATE);
@@ -92,8 +92,8 @@ public class LokiAlarm extends BroadcastReceiver
         Calendar calNow = Calendar.getInstance();
         Calendar calSet = (Calendar) calNow.clone();
         int hourOfDay= Integer.parseInt((hour.substring(0,hour.indexOf(":"))));
-        calSet.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        calSet.set(Calendar.MINUTE, 0);
+        calSet.set(Calendar.HOUR_OF_DAY, 22);
+        calSet.set(Calendar.MINUTE, 32);
         calSet.set(Calendar.SECOND, 0);
         calSet.set(Calendar.MILLISECOND, 0);
 

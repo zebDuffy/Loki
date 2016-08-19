@@ -46,9 +46,9 @@ public class GetWebPage extends AsyncTask<String, Context, Void> {
         try {
 
             Document document = Jsoup.connect("http://photography.nationalgeographic.com/photography/photo-of-the-day/").get();
-            Elements photo= document.getElementsByClass("primary_photo");
-            Elements media = photo.select("[src]");
-            URL photoURL=new URL(media.first().attr("abs:src"));
+            Elements metalinks = document.select("meta[name=twitter:image:src]");
+            String media = metalinks.attr("content");
+            URL photoURL=new URL(media);
             URLConnection imageCon=photoURL.openConnection();
 
             InputStream is = imageCon.getInputStream();
