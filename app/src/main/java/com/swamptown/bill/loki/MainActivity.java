@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -36,13 +37,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-/* TODO make schedule work*/
-/* TODO Fix layout*/
-/* TODO all options work*/
+
 /* TODO Title, help, about etc*/
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     public static String lokiPrefs="Loli.cfg";
 
     @Override
@@ -53,7 +52,9 @@ public class MainActivity extends Activity {
         final Resources res = getResources();
 
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+
 
         final Button downloadButton = (Button) findViewById(R.id.btnTest);
         final Button saveButton = (Button) findViewById(R.id.btnSave);
@@ -213,6 +214,7 @@ public class MainActivity extends Activity {
 
             return super.onOptionsItemSelected(item);
         }
+
 
     }
 
