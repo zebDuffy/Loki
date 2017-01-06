@@ -61,7 +61,7 @@ public class GetWebPage extends AsyncTask<String, Context, Void> {
             WallpaperManager imageWallpapermanager = WallpaperManager.getInstance(context.getApplicationContext());
             imageWallpapermanager.setStream(new FileInputStream(context.getFilesDir().getPath()+"desktop.jpg"));
             DownloadNotification downLoad=new DownloadNotification();
-            downLoad.DoNotification("loki", "Downloaded NG Photo", context);
+            downLoad.DoNotification("loki", "Downloaded National Geopgraphic Photo of The Day. For more information on this picture see http://photography.nationalgeographic.com/photography/photo-of-the-day/", context);
         } catch (Exception e) {
             e.printStackTrace();
         }

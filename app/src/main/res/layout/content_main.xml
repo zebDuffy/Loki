@@ -15,7 +15,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save Settings"
+        android:text="Schedule Update"
         android:id="@+id/btnSave"
         android:layout_below="@+id/spinner2"
         android:layout_toRightOf="@+id/textView"
@@ -62,20 +62,20 @@
         android:layout_marginTop="17dp" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Test Settings"
+        android:text="Update Now"
         android:id="@+id/btnTest"
-        android:layout_marginLeft="29dp"
-        android:layout_marginStart="29dp"
-        android:layout_alignTop="@+id/btnSave"
+        android:layout_above="@+id/btnCancel"
         android:layout_toRightOf="@+id/btnSave"
-        android:layout_toEndOf="@+id/btnSave" />
+        android:layout_toEndOf="@+id/btnSave"
+        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cancel Downloads"
+        android:text="Cancel Scheduled Updates"
         android:id="@+id/btnCancel"
         android:layout_marginTop="37dp"
         android:layout_below="@+id/btnSave"

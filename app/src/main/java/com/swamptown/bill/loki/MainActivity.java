@@ -36,10 +36,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-/* TODO INtegrate github and commit*/
-/* TODO Icon, Title, help, about etc
-/* TODO get description of page */
-/* TODO finish statusbar notifications*/
+/* TODO make schedule work*/
+/* TODO Fix layout*/
+/* TODO all options work*/
+/* TODO Title, help, about etc*/
+
+
 public class MainActivity extends Activity {
     public static String lokiPrefs="Loli.cfg";
 

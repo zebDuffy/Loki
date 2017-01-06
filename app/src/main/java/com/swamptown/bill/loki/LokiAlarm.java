@@ -92,8 +92,8 @@ public class LokiAlarm extends BroadcastReceiver
         Calendar calNow = Calendar.getInstance();
         Calendar calSet = (Calendar) calNow.clone();
         int hourOfDay= Integer.parseInt((hour.substring(0,hour.indexOf(":"))));
-        calSet.set(Calendar.HOUR_OF_DAY, 22);
-        calSet.set(Calendar.MINUTE, 32);
+        calSet.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        calSet.set(Calendar.MINUTE, 0);
         calSet.set(Calendar.SECOND, 0);
         calSet.set(Calendar.MILLISECOND, 0);
 
@@ -101,7 +101,7 @@ public class LokiAlarm extends BroadcastReceiver
             //Today Set time passed, count to tomorrow
             calSet.add(Calendar.DATE, 1);
         }
-        am.setInexactRepeating(AlarmManager.RTC_WAKEUP, calSet.getTimeInMillis(), am.INTERVAL_DAY, pi);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, calSet.getTimeInMillis(), am.INTERVAL_DAY, pi);
         Log.d("Alarm", "set alarm");
 
     }

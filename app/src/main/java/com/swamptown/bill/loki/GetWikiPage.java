@@ -39,7 +39,7 @@ public class GetWikiPage extends AsyncTask<String, Void, Void> {
             WallpaperManager imageWallpapermanager = WallpaperManager.getInstance(context.getApplicationContext());
             imageWallpapermanager.setStream(new FileInputStream(context.getFilesDir().getPath()+"desktop.jpg"));
             DownloadNotification downLoad=new DownloadNotification();
-            downLoad.DoNotification("loki", "Downloaded Wiki", context);
+            downLoad.DoNotification("loki", "Downloaded Wikipedia Picture of the Day. For more information on this picture see https://en.wikipedia.org/wiki/Wikipedia:Picture_of_the_day", context);
         } catch (Exception e) {
             e.printStackTrace();
         }
