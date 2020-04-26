@@ -1,47 +1,26 @@
 package com.swamptown.bill.loki;
 
-import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.app.WallpaperManager;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
-import android.content.Intent;
-import android.content.BroadcastReceiver;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import java.util.Random;
 
-
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-
-/* TODO Title, help, about etc*/
-
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends
+        AppCompatActivity {
     public static String lokiPrefs="Loli.cfg";
 
     @Override
@@ -56,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
 
-        final Button downloadButton = (Button) findViewById(R.id.btnTest);
+        final
+        Button downloadButton = (Button) findViewById(R.id.btnTest);
         final Button saveButton = (Button) findViewById(R.id.btnSave);
         final Button cancelButton = (Button) findViewById(R.id.btnCancel);
 

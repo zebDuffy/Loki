@@ -1,27 +1,23 @@
 package com.swamptown.bill.loki;
+
 import android.app.AlarmManager;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.PowerManager;
-import android.os.SystemClock;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
-import android.widget.Toast;
-import android.content.Context;
-import android.content.res.Resources;
 
+import androidx.legacy.content.WakefulBroadcastReceiver;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Random;
 
 /**
  * Created by bill on 5/14/16.
  */
-public class LokiAlarm extends BroadcastReceiver
+public class LokiAlarm extends WakefulBroadcastReceiver
 {
 
     @Override
@@ -82,6 +78,8 @@ public class LokiAlarm extends BroadcastReceiver
         }
         wl.release();
         Log.d("Alarm", "trigger alarm");
+        String alarmHour = readShared.getString("Time",null);
+        SetAlarm(context, alarmHour);
     }
 
     public void SetAlarm(Context context, String hour)
@@ -92,16 +90,14 @@ public class LokiAlarm extends BroadcastReceiver
         Calendar calNow = Calendar.getInstance();
         Calendar calSet = (Calendar) calNow.clone();
         int hourOfDay= Integer.parseInt((hour.substring(0,hour.indexOf(":"))));
-        calSet.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        calSet.set(Calendar.MINUTE, 0);
+        calSet.set(Calendar.HOUR_OF_DAY, 18);
+        calSet.set(Calendar.MINUTE, 31);
         calSet.set(Calendar.SECOND, 0);
         calSet.set(Calendar.MILLISECOND, 0);
-
-        if(calSet.compareTo(calNow) <= 0) {
-            //Today Set time passed, count to tomorrow
-            calSet.add(Calendar.DATE, 1);
-        }
-        am.setRepeating(AlarmManager.RTC_WAKEUP, calSet.getTimeInMillis(), am.INTERVAL_DAY, pi);
+        calSet.add(Calendar.DAY_OF_YEAR, 1);
+        SimpleDateFormat format = new SimpleDateFormat("EEEE, MMMM d, yyyy 'at' h:mm a");
+        Log.d("Alarm", "Alarm Time: " + format.format(calSet.getTime()));
+        am.set(AlarmManager.RTC_WAKEUP, calSet.getTimeInMillis(), pi);
         Log.d("Alarm", "set alarm");
 
     }
