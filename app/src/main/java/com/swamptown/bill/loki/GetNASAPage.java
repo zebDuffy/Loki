@@ -24,10 +24,7 @@ public class GetNASAPage extends AsyncTask<String, Void, Void> {
     public Context context;
     protected Void doInBackground(String... urls) {
         try {
-            Document document = Jsoup.connect("http://apod.nasa.gov/apod/astropix.html").get();
-            Elements photo= document.getElementsByTag("IMG");
-            Elements media = photo.select("[src]");
-            URL photoURL=new URL( media.first().attr("abs:src"));
+            URL photoURL=new URL( "https://s3-us-west-2.amazonaws.com/com.screenscraper.images/current.jpg");
             URLConnection imageCon=photoURL.openConnection();
 
             InputStream is = imageCon.getInputStream();
