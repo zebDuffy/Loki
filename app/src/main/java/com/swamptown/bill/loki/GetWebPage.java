@@ -24,11 +24,7 @@ public class GetWebPage extends AsyncTask<String, Context, Void> {
 
     protected Void doInBackground(String... urls) {
         try {
-
-            Document document = Jsoup.connect("http://photography.nationalgeographic.com/photography/photo-of-the-day/").get();
-            Elements metalinks = document.select("meta[name=twitter:image:src]");
-            String media = metalinks.attr("content");
-            URL photoURL=new URL(media);
+            URL photoURL=new URL("https://s3-us-west-2.amazonaws.com/com.screenscraper.images/geo.jpg");
             URLConnection imageCon=photoURL.openConnection();
 
             InputStream is = imageCon.getInputStream();

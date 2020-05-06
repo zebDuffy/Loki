@@ -24,7 +24,7 @@ public class GetNASAPage extends AsyncTask<String, Void, Void> {
     public Context context;
     protected Void doInBackground(String... urls) {
         try {
-            URL photoURL=new URL( "https://s3-us-west-2.amazonaws.com/com.screenscraper.images/current.jpg");
+            URL photoURL=new URL( "https://s3-us-west-2.amazonaws.com/com.screenscraper.images/astronomy.jpg");
             URLConnection imageCon=photoURL.openConnection();
 
             InputStream is = imageCon.getInputStream();
