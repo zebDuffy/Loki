@@ -1,6 +1,7 @@
 package com.swamptown.bill.loki;
 
 
+import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -17,11 +18,18 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Random;
 
 public class MainActivity extends
         AppCompatActivity {
     public static String lokiPrefs="Loli.cfg";
+    public Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,30 +83,19 @@ public class MainActivity extends
         downloadButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {
+                    String photoURL = null;
                     if (String.valueOf(dropdown.getSelectedItem()).equals("Wikimedia Photo of the Day"))
                     {
-                        GetWikiPage page = new GetWikiPage();
-                        page.context=getApplicationContext();
-                        page.execute();
-                        /*LokiAlarm alarm = new LokiAlarm();
-                         alarm.SetAlarm(getApplicationContext());*/
-                        Toast.makeText(MainActivity.this, "Getting Wiki Page", Toast.LENGTH_SHORT).show();
+                        photoURL="https://s3-us-west-2.amazonaws.com/com.screenscraper.images/wiki.jpg";
+
                     }
                     else if (String.valueOf(dropdown.getSelectedItem()).equals("Astronomy Picture of the Day"))
                     {
-                        GetNASAPage page = new GetNASAPage();
-                        page.context=getApplicationContext();
-                        page.execute();
-                        /*LokiAlarm alarm = new LokiAlarm();
-                         alarm.SetAlarm(getApplicationContext());*/
-                        Toast.makeText(MainActivity.this, "Getting NASA Page", Toast.LENGTH_SHORT).show();
+                        photoURL="https://s3-us-west-2.amazonaws.com/com.screenscraper.images/astronomy.jpg";
                     }
                     else if (String.valueOf(dropdown.getSelectedItem()).equals("National Geographic Photo of the Day"))
                     {
-                        GetWebPage page = new GetWebPage();
-                        page.context=getApplicationContext();
-                        page.execute();
-                        Toast.makeText(MainActivity.this, "Getting National Geographic Page", Toast.LENGTH_SHORT).show();
+                        photoURL="https://s3-us-west-2.amazonaws.com/com.screenscraper.images/geo.jpg";
                     }
                     else
                     {
@@ -106,28 +103,20 @@ public class MainActivity extends
                         int randomNum = rand.nextInt(3) + 1;
                         switch (randomNum) {
                             case 1:
-                                GetWebPage page = new GetWebPage();
-                                page.context=getApplicationContext();
-                                page.execute();
+                                photoURL="https://s3-us-west-2.amazonaws.com/com.screenscraper.images/wiki.jpg";
                                 break;
                             case 2:
-                                GetWikiPage page2 = new GetWikiPage();
-                                page2.context=getApplicationContext();
-                                page2.execute();
+                                photoURL="https://s3-us-west-2.amazonaws.com/com.screenscraper.images/geo.jpg";
                                 break;
                             case 3:
-                                GetNASAPage page3 = new GetNASAPage();
-                                page3.context=getApplicationContext();
-                                page3.execute();
+                                photoURL="https://s3-us-west-2.amazonaws.com/com.screenscraper.images/astronomy.jpg";
                                 break;
                         }
-                        Toast.makeText(MainActivity.this, "Getting Random Page", Toast.LENGTH_SHORT).show();
-
                     }
-
-                    Log.d("Test", String.valueOf(dropdown.getSelectedItem()));
-
-
+                    Toast.makeText(MainActivity.this, "Getting "+ dropdown.getSelectedItem().toString() , Toast.LENGTH_SHORT).show();
+                    GetImageWallpaper page = new GetImageWallpaper();
+                    page.context=getApplicationContext();
+                    page.execute(photoURL, dropdown.getSelectedItem().toString() );
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -31,27 +31,18 @@ public class LokiAlarm extends WakefulBroadcastReceiver
         String getSite=readShared.getString("Site", null);
         int mId=1;
 
+        String photoURL = null;
         if (getSite.equals("Wikimedia Photo of the Day"))
         {
-            GetWikiPage page = new GetWikiPage();
-            page.context=context;
-            page.execute();
-
-
-        }
+            photoURL="https://s3-us-west-2.amazonaws.com/com.screenscraper.images/wiki.jpg";
+       }
         else if (getSite.equals("Astronomy Picture of the Day"))
         {
-            GetNASAPage page = new GetNASAPage();
-            page.context=context;
-            page.execute();
-
+            photoURL="https://s3-us-west-2.amazonaws.com/com.screenscraper.images/astronomy.jpg";
         }
         else if (getSite.equals("National Geographic Photo of the Day"))
         {
-            GetWebPage page = new GetWebPage();
-            page.context=context;
-            page.execute();
-
+            photoURL="https://s3-us-west-2.amazonaws.com/com.screenscraper.images/geo.jpg";
         }
         else
         {
@@ -59,23 +50,20 @@ public class LokiAlarm extends WakefulBroadcastReceiver
             int randomNum = rand.nextInt(3) + 1;
             switch (randomNum) {
                 case 1:
-                    GetWebPage page = new GetWebPage();
-                    page.context=context;
-                    page.execute();
+                    photoURL="https://s3-us-west-2.amazonaws.com/com.screenscraper.images/wiki.jpg";
                     break;
                 case 2:
-                    GetWikiPage page2 = new GetWikiPage();
-                    page2.context=context;
-                    page2.execute();
+                    photoURL="https://s3-us-west-2.amazonaws.com/com.screenscraper.images/astronomy.jpg";
                     break;
                 case 3:
-                    GetNASAPage page3 = new GetNASAPage();
-                    page3.context=context;
-                    page3.execute();
+                    photoURL="https://s3-us-west-2.amazonaws.com/com.screenscraper.images/geo.jpg";
                     break;
             }
 
         }
+        GetImageWallpaper page = new GetImageWallpaper();
+        page.context= context.getApplicationContext();
+        page.execute(photoURL, getSite );
         wl.release();
         Log.d("Alarm", "trigger alarm");
         String alarmHour = readShared.getString("Time",null);
