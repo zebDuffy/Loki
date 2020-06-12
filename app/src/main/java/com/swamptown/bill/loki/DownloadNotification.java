@@ -8,11 +8,8 @@ import android.content.Intent;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.TaskStackBuilder;
 
-/**
- * Created by bill on 7/28/16.
- */
-public class DownloadNotification {
-    public void DoNotification(String title, String notification, Context context )
+class DownloadNotification {
+    void DoNotification(String title, String notification, Context context)
     {
         int mId=1;
         NotificationCompat.Builder mBuilder =

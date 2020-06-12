@@ -3,13 +3,11 @@ package com.swamptown.bill.loki;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.WallpaperManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,22 +16,15 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Random;
 
 public class MainActivity extends
         AppCompatActivity {
     public static final String CHANNEL_ID ="1" ;
-    public static String lokiPrefs="Loli.cfg";
-    public Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,33 +34,32 @@ public class MainActivity extends
         final Resources res = getResources();
 
         setContentView(R.layout.activity_main);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
 
-        final
-        Button downloadButton = (Button) findViewById(R.id.btnTest);
-        final Button saveButton = (Button) findViewById(R.id.btnSave);
-        final Button cancelButton = (Button) findViewById(R.id.btnCancel);
+        final Button downloadButton = findViewById(R.id.btnTest);
+        final Button saveButton = findViewById(R.id.btnSave);
+        final Button cancelButton = findViewById(R.id.btnCancel);
 
-        final Spinner dropdown = (Spinner)findViewById(R.id.spinner);
+        final Spinner dropdown = findViewById(R.id.spinner);
         String[] items = res.getStringArray(R.array.sites);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapter);
 
-        Spinner dropdown2 = (Spinner)findViewById(R.id.spinner2);
+        Spinner dropdown2 = findViewById(R.id.spinner2);
         String[] items2 = res.getStringArray(R.array.hours);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items2);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items2);
         dropdown2.setAdapter(adapter2);
 
         /*read current settings*/
         SharedPreferences readShared;
         readShared = getSharedPreferences("LokiPrefs", Context.MODE_PRIVATE);
         String getSite=readShared.getString("Site", null);
-        if (getSite != null)
+        if (getSite != null )
         {
             for(int i=0; i < adapter.getCount(); i++) {
-                if(getSite.trim().equals(adapter.getItem(i).toString())){
+                if(adapter.getItem(i).equals(getSite.trim())){
                     dropdown.setSelection(i);
                     break;
                 }
@@ -77,7 +67,7 @@ public class MainActivity extends
 
             String getTime=readShared.getString("Time", null);
             for(int i=0; i < adapter2.getCount(); i++) {
-                if (getTime.trim().equals(adapter2.getItem(i).toString())) {
+                if (adapter2.getItem(i).equals(getTime.trim())) {
                     dropdown2.setSelection(i);
                     break;
                 }
@@ -131,20 +121,18 @@ public class MainActivity extends
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Spinner dropdown = (Spinner)findViewById(R.id.spinner);
-                Spinner dropdown2 = (Spinner)findViewById(R.id.spinner2);
-                SharedPreferences sharedpreferences =null;
+                Spinner dropdown = findViewById(R.id.spinner);
+                Spinner dropdown2;
+                dropdown2 = findViewById(R.id.spinner2);
                 Toast.makeText(MainActivity.this,
-                        res.getString(R.string.action_settings)+
-                                "\n"+res.getString(R.string.site) + ": "+ String.valueOf(dropdown.getSelectedItem()) +
-                                "\n"+res.getString(R.string.hour) + ": "+ String.valueOf(dropdown2.getSelectedItem()),
+                        res.getString(R.string.action_settings) + "\n" + res.getString(R.string.site) + ": " + dropdown.getSelectedItem() + "\n" + res.getString(R.string.hour) + ": " + dropdown2.getSelectedItem(),
                         Toast.LENGTH_SHORT).show();
-                sharedpreferences = getSharedPreferences("LokiPrefs", Context.MODE_PRIVATE);
+                SharedPreferences sharedpreferences = getSharedPreferences("LokiPrefs", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
 
                 editor.putString("Site", String.valueOf(dropdown.getSelectedItem()));
                 editor.putString("Time", String.valueOf(dropdown2.getSelectedItem()));
-                editor.commit();
+                editor.apply();
                 LokiAlarm alarm = new LokiAlarm();
                 alarm.SetAlarm(getApplicationContext(),String.valueOf(dropdown2.getSelectedItem()));
 
@@ -177,22 +165,38 @@ public class MainActivity extends
 
         @Override
         public boolean onOptionsItemSelected (MenuItem item){
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
             int id = item.getItemId();
-
-            //noinspection SimplifiableIfStatement
             if (id == R.id.action_settings) {
+
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(getApplicationContext());
+                builder1.setMessage("Write your message here.");
+                builder1.setCancelable(true);
+
+                builder1.setPositiveButton(
+                        "Yes",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                builder1.setNegativeButton(
+                        "No",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
+
                 return true;
             }
 
             return super.onOptionsItemSelected(item);
         }
     private void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = getString(R.string.channel_name);
             String description = getString(R.string.channel_description);
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
@@ -203,7 +207,6 @@ public class MainActivity extends
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
-    }
 
 
     }
