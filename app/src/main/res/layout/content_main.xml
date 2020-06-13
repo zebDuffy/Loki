@@ -42,45 +42,53 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <Spinner
+    <TimePicker
+        android:id="@+id/timePicker1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner2"
         android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="17dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="68dp"
+        android:layout_marginLeft="68dp"
+        android:layout_marginTop="1dp"
+        android:timePickerMode="spinner" />
 
     <Button
+        android:id="@+id/btnTest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Update Now"
-        android:id="@+id/btnTest"
-        android:layout_above="@+id/btnCancel"
-        android:layout_toRightOf="@+id/btnSave"
+        android:layout_below="@id/timePicker1"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="473dp"
         android:layout_toEndOf="@+id/btnSave"
-        android:layout_marginLeft="22dp"
-        android:layout_marginStart="22dp" />
+        android:layout_toRightOf="@id/btnSave"
+        android:text="Update Now" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cancel Scheduled Updates"
-        android:id="@+id/btnCancel"
-        android:layout_marginTop="37dp"
-        android:layout_below="@+id/btnSave"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Schedule Update"
         android:id="@+id/btnSave"
-        android:layout_marginTop="31dp"
-        android:layout_below="@+id/spinner2"
-        android:layout_alignParentLeft="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/timePicker1"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="14dp"
-        android:layout_marginStart="14dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="31dp"
+        android:text="Schedule Update" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnSave"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp"
+        android:text="Cancel Scheduled Updates" />
 
 </RelativeLayout>

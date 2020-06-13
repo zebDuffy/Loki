@@ -3,6 +3,7 @@
     <string name="action_settings">About</string>
     <string name="site">Site</string>
     <string name="hour">Hour</string>
+    <string name='time'>Time</string>
     <string name="cancel">Cancelling All Scheduled Downloads</string>
     <string name="channel_name">Loki</string>
     <string name="channel_description">For Fun</string>

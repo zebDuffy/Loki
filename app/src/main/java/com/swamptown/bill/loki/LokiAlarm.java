@@ -60,24 +60,20 @@ public class LokiAlarm extends BroadcastReceiver
         Log.d("Alarm", "trigger alarm");
     }
 
-    public void SetAlarm(Context context, String hour)
+    public void SetAlarm(Context context, int hour, int minute)
     {
         AlarmManager am =( AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, LokiAlarm.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, PendingIntent.FLAG_CANCEL_CURRENT);
         Calendar calNow = Calendar.getInstance();
-        Calendar calSet = (Calendar) calNow.clone();
-        int hourOfDay= Integer.parseInt((hour.substring(0,hour.indexOf(":"))));
-        calSet.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        calSet.set(Calendar.MINUTE, 22);
-        calSet.set(Calendar.SECOND, 0);
-        calSet.set(Calendar.MILLISECOND, 0);
-        calSet.add(Calendar.DAY_OF_YEAR, 0);
+        calNow.set(Calendar.HOUR_OF_DAY, hour);
+        calNow.set(Calendar.MINUTE, minute);
+        calNow.set(Calendar.SECOND, 0);
         SimpleDateFormat format = new SimpleDateFormat("EEEE, MMMM d, yyyy 'at' h:mm a");
-        Log.d("Alarm", "Alarm Time: " + format.format(calSet.getTime()));
-        am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calSet.getTimeInMillis(), pi);
+        Log.d("Alarm", "Alarm Time: " + format.format(calNow.getTime()));
+        am.setRepeating(AlarmManager.RTC_WAKEUP, calNow.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, pi);
         Log.d("Alarm", "set alarm");
-
     }
 
     public void CancelAlarm(Context context)

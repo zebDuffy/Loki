@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -47,10 +48,8 @@ public class MainActivity extends
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapter);
 
-        Spinner dropdown2 = findViewById(R.id.spinner2);
-        String[] items2 = res.getStringArray(R.array.hours);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items2);
-        dropdown2.setAdapter(adapter2);
+        final TimePicker simpleTimePicker = (TimePicker) findViewById(R.id.timePicker1);
+        simpleTimePicker.setIs24HourView(true);
 
         /*read current settings*/
         SharedPreferences readShared;
@@ -64,18 +63,13 @@ public class MainActivity extends
                     break;
                 }
             }
-
-            String getTime=readShared.getString("Time", null);
-            for(int i=0; i < adapter2.getCount(); i++) {
-                if (adapter2.getItem(i).equals(getTime.trim())) {
-                    dropdown2.setSelection(i);
-                    break;
-                }
-            }
-            createNotificationChannel();
+           int getHour=readShared.getInt("Hour", -1);
+           if (getHour !=-1) simpleTimePicker.setHour(getHour);
+           int getMin=readShared.getInt("Min", -1);
+           if (getMin !=-1) simpleTimePicker.setMinute(getMin);
 
         }
-
+        createNotificationChannel();
         downloadButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {
@@ -113,6 +107,8 @@ public class MainActivity extends
                     GetImageWallpaper page = new GetImageWallpaper();
                     page.context=getApplicationContext();
                     page.execute(photoURL, dropdown.getSelectedItem().toString() );
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -122,19 +118,20 @@ public class MainActivity extends
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Spinner dropdown = findViewById(R.id.spinner);
-                Spinner dropdown2;
-                dropdown2 = findViewById(R.id.spinner2);
+                TimePicker simpleTimePicker;
+                simpleTimePicker= findViewById(R.id.timePicker1);
                 Toast.makeText(MainActivity.this,
-                        res.getString(R.string.action_settings) + "\n" + res.getString(R.string.site) + ": " + dropdown.getSelectedItem() + "\n" + res.getString(R.string.hour) + ": " + dropdown2.getSelectedItem(),
+                        "Scheduled wallaper update from " + dropdown.getSelectedItem(),
                         Toast.LENGTH_SHORT).show();
                 SharedPreferences sharedpreferences = getSharedPreferences("LokiPrefs", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
 
                 editor.putString("Site", String.valueOf(dropdown.getSelectedItem()));
-                editor.putString("Time", String.valueOf(dropdown2.getSelectedItem()));
+                editor.putInt("Hour", simpleTimePicker.getHour());
+                editor.putInt("Min", simpleTimePicker.getMinute());
                 editor.apply();
                 LokiAlarm alarm = new LokiAlarm();
-                alarm.SetAlarm(getApplicationContext(),String.valueOf(dropdown2.getSelectedItem()));
+                alarm.SetAlarm(getApplicationContext(),simpleTimePicker.getHour(), simpleTimePicker.getMinute());
 
 
 
@@ -146,7 +143,7 @@ public class MainActivity extends
                     LokiAlarm alarm= new LokiAlarm();
                     alarm.CancelAlarm(getApplicationContext());
                     Toast.makeText(MainActivity.this,
-                            res.getString(R.string.cancel),
+                            "Cancelled All Scheduled Updates",
                             Toast.LENGTH_SHORT).show();
                 }
                 catch (Exception e) {
