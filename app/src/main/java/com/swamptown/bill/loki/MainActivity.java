@@ -5,8 +5,10 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,6 +44,7 @@ public class MainActivity extends
         final Button downloadButton = findViewById(R.id.btnTest);
         final Button saveButton = findViewById(R.id.btnSave);
         final Button cancelButton = findViewById(R.id.btnCancel);
+        final Button gotoButton=findViewById(R.id.btnGoTo);
 
         final Spinner dropdown = findViewById(R.id.spinner);
         String[] items = res.getStringArray(R.array.sites);
@@ -145,6 +148,28 @@ public class MainActivity extends
                     Toast.makeText(MainActivity.this,
                             "Cancelled All Scheduled Updates",
                             Toast.LENGTH_SHORT).show();
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        gotoButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    String photoURL = null;
+                    if (String.valueOf(dropdown.getSelectedItem()).equals("Wikimedia Photo of the Day")) {
+                        photoURL = "https://en.wikipedia.org/wiki/Wikipedia:Picture_of_the_day";
+
+                    } else if (String.valueOf(dropdown.getSelectedItem()).equals("Astronomy Picture of the Day")) {
+                        photoURL = "https://apod.nasa.gov/apod/astropix.html";
+                    } else if (String.valueOf(dropdown.getSelectedItem()).equals("National Geographic Photo of the Day")) {
+                        photoURL = "http://photography.nationalgeographic.com/photography/photo-of-the-day/";
+                    } else {
+                        photoURL="http://brewingri.com";
+                    }
+                    Intent browse = new Intent( Intent.ACTION_VIEW , Uri.parse( photoURL ) );
+                    startActivity( browse );
                 }
                 catch (Exception e) {
                     e.printStackTrace();
