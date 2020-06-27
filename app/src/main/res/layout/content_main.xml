@@ -14,17 +14,14 @@
 
     <Button
         android:id="@+id/btnGoTo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/timePicker1"
+        android:layout_width="152dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/btnSave"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="23dp"
         android:layout_marginLeft="23dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="23dp"
         android:layout_marginEnd="31dp"
-        android:layout_marginBottom="473dp"
-        android:layout_toEndOf="@+id/btnSave"
-        android:layout_toRightOf="@id/btnCancel"
         android:text="Go To Site" />
 
     <Spinner
@@ -72,39 +69,36 @@
 
     <Button
         android:id="@+id/btnTest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="152dp"
+        android:layout_height="60dp"
         android:layout_below="@id/timePicker1"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="23dp"
         android:layout_marginLeft="23dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="31dp"
-        android:layout_marginBottom="473dp"
-        android:layout_toEndOf="@+id/btnSave"
-        android:layout_toRightOf="@id/btnSave"
         android:text="Update Now" />
 
     <Button
         android:id="@+id/btnSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="152dp"
+        android:layout_height="60dp"
         android:layout_below="@id/timePicker1"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="31dp"
+        android:layout_marginStart="41dp"
+        android:layout_marginLeft="41dp"
+        android:layout_marginTop="30dp"
         android:text="Schedule Update" />
 
     <Button
         android:id="@+id/btnCancel"
         android:layout_width="152dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_below="@+id/btnSave"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="34dp"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="23dp"
         android:text="Cancel Updates" />
 
 </RelativeLayout>
